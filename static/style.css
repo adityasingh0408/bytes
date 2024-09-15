@@ -1,0 +1,50 @@
+/* Style for the barcode control section */
+.barcode-control {
+    margin-top: 30px; /* Adjust margin as needed */
+}
+
+/* Style for the Start Detection button */
+.barcode-control button.btn-success {
+    background-color: #28a745; /* Green color */
+    color: #fff; /* White text color */
+    border: none; /* No border */
+    padding: 10px 20px; /* Padding */
+    margin-right: 10px; /* Adjust margin */
+}
+
+/* Hover effect for Start Detection button */
+.barcode-control button.btn-success:hover {
+    background-color: #218838; /* Darker green color */
+}
+
+/* Style for the Stop Detection button */
+.barcode-control button.btn-danger {
+    background-color: #dc3545; /* Red color */
+    color: #fff; /* White text color */
+    border: none; /* No border */
+    padding: 10px 20px; /* Padding */
+}
+
+/* Hover effect for Stop Detection button */
+.barcode-control button.btn-danger:hover {
+    background-color: #c82333; /* Darker red color */
+}
+
+/* Style for the result */
+.result {
+    font-size: 50px;
+    text-align: center; /* Center align the result */
+    margin-top: 20px; /* Add space above the result */
+}
+
+/* Style for authentic result */
+.authentic {
+    color: green;
+    font-weight: bold; /* Make the text bold */
+}
+
+/* Style for deepfake result */
+.deepfake {
+    color: red;
+    font-weight: bold; /* Make the text bold */
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepfake Detection - Upload</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: auto;
+        }
+        #background-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+        }
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 100px 0 0 100px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        .barcode-control {
+            margin-top: 30px;
+        }
+        .barcode-control button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <video autoplay muted loop id="background-video">
+        <source src="{{ url_for('static', filename='video.mp4') }}" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+
+    <div class="container" id="uploadContainer">
+        <h1 class="mt-5 text-center text-black styled-heading">Deepfake Detection</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data" class="mt-4">
+            <div class="mb-3">
+                <input type="file" name="file" id="fileInput" class="form-control" onchange="previewImage()">
+                <img id="preview" src="#" alt="Image Preview" class="img-fluid rounded mx-auto d-block preview-image">
+            </div>
+            <button type="submit" class="btn btn-primary d-block mx-auto" onclick="handleFileUpload()"><i class="bi bi-upload"></i> Upload</button>
+        </form>
+        
+        <button onclick="deleteImage()" class="btn btn-danger mt-3 delete-btn"><i class="bi bi-trash"></i> Delete Image</button>
+        
+        <div class="barcode-control">
+            <h2>Real-Time Face Detection</h2>
+            <p>Detection Status: {% if barcode_detection_running %}Running{% else %}Stopped{% endif %}</p>
+            <form method="GET" action="/start_detection">
+                <button class="btn btn-success" type="submit">Start Detection</button>
+            </form>
+            <div>
+            <form method="GET" action="/stop_detection">
+                <button class="btn btn-danger" type="submit">Stop Detection</button>
+            </form>
+        </div>
+        </div>
+
+        <!-- Add buttons for retraining and viewing logs -->
+        <div class="mt-4 text-center">
+            <h2>Retrain model</h2>
+            <form method="POST" action="/retrain_model">
+                <button type="submit" class="btn btn-warning">Retrain Model</button>
+            </form>
+            <div class="mt-4">
+                <h2>Training Logs</h2>
+                <form method="GET" action="/view_logs">
+                    <button class="btn btn-info" type="submit"><i class="bi bi-file-text"></i> View Training Logs</button>
+                </form>
+            </div>
+            
